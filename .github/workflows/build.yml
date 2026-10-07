@@ -1,6 +1,6 @@
 # ============================================================
-#  .github/workflows/build.yml
-#  Auto-build EXOMAX V1 → APK artifact
+#  .github/workflows/build.yml  —  versi FIX
+#  buat project di ROOT repo (bukan subfolder)
 # ============================================================
 name: Build EXOMAX V1
 
@@ -42,11 +42,9 @@ jobs:
           restore-keys: gradle-
 
       - name: Generate Gradle Wrapper
-        working-directory: exomax-v1
         run: gradle wrapper --gradle-version 8.2
 
       - name: Build Release APK
-        working-directory: exomax-v1
         run: |
           chmod +x ./gradlew
           ./gradlew assembleRelease --stacktrace
@@ -55,5 +53,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: EXOMAX-V1-${{ github.run_number }}
-          path: exomax-v1/app/build/outputs/apk/release/*.apk
+          path: app/build/outputs/apk/release/*.apk
           retention-days: 30
